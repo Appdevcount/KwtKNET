@@ -1,0 +1,205 @@
+4155493223203870103
+
+Data = Unable to evaluate expression because the code is optimized or a native frame is on top of the call stack.
+
+
+http://localhost/GCSKnetPayTestPP/callpaymentgateway.aspx
+
+http://localhost/GCSKnetPayTestPP/CallPaymentGateWay.aspx
+
+http://localhost/GCSKnetPayTestPP/Error.aspx
+
+http://localhost/GCSKnetPayTestPP/errorPage.aspx
+
+http://localhost/GCSKnetPayTestPP/genericError.html
+
+http://localhost/GCSKnetPayTestPP/HomePage.htm
+
+http://localhost/GCSKnetPayTestPP/internalError.aspx
+
+http://localhost/GCSKnetPayTestPP/knetPage.aspx
+
+http://localhost/GCSKnetPayTestPP/NewResponse.aspx
+
+http://localhost/GCSKnetPayTestPP/receipt.aspx
+
+http://localhost/GCSKnetPayTestPP/receiptFailed.aspx
+
+http://localhost/GCSKnetPayTestPP/css/st.css
+
+http://localhost/GCSKnetPayTestPP/css/stAra.css
+
+http://localhost/GCSKnetPayTestPP/Images/gcslogo.png
+
+http://localhost/GCSKnetPayTestPP/Images/Failed.png
+
+http://localhost/GCSKnetPayTestPP/Images/kgaclogo.png
+
+http://localhost/GCSKnetPayTestPP/Images/logo.png
+
+http://localhost/GCSKnetPayTestPP/Images/Success.png
+
+
+
+                        command.Parameters.Add("@PaymentId", SqlDbType.BigInt).Value = String.IsNullOrEmpty(PaymentId) ? 0 : Int64.Parse(PaymentId);
+                        command.Parameters.Add("@error", SqlDbType.VarChar).Value = error;
+                        command.Parameters.Add("@response", SqlDbType.VarChar).Value = response;
+                        command.Parameters.Add("@TranStatus", SqlDbType.VarChar).Value = TranStatus;
+                        command.Parameters.Add("@TranStpDateTime", SqlDbType.DateTime).Value = TranStpDateTime;
+                        command.Parameters.Add("@TransId", SqlDbType.BigInt).Value = String.IsNullOrEmpty(TransId) ? 0 : Int64.Parse(TransId);
+
+
+                        command.Parameters.Add("@Result", SqlDbType.VarChar).Value = Result;
+                        command.Parameters.Add("@PostDate", SqlDbType.DateTime).Value = DateTime.Parse(PostDate);
+                        command.Parameters.Add("@AuthByBank", SqlDbType.VarChar).Value = AuthByBank;
+                        command.Parameters.Add("@RefByBank", SqlDbType.VarChar).Value = RefByBank;
+
+                        // Where
+                        command.Parameters.Add("@CheckId", SqlDbType.Int).Value = String.IsNullOrEmpty(CheckId) ? 0 : Int32.Parse(CheckId);
+                        command.Parameters.Add("@DeclarationId", SqlDbType.BigInt).Value = String.IsNullOrEmpty(DeclarationId.ToString()) ? 0 : DeclarationId;
+                        command.Parameters.Add("@TempDeclNumber", SqlDbType.VarChar).Value = TempDecNo;
+                        command.Parameters.Add("@PayID", SqlDbType.Int).Value = String.IsNullOrEmpty(PayID) ? 0 : Int32.Parse(PayID);
+      dfvdfcdf           //command.Parameters.Add("@tokenId", SqlDbType.BigInt).Value = tokenId;
+
+                        command.Parameters.Add("@CustomsDuty", SqlDbType.Decimal, 18).Value = Convert.ToDecimal(CustomsDuty == "" ? "0" : CustomsDuty);
+                        command.Parameters.Add("@HandlingCharges", SqlDbType.Decimal, 18).Value = Convert.ToDecimal(HandlingCharges == "" ? "0" : HandlingCharges);
+                        command.Parameters.Add("@Storage", SqlDbType.Decimal, 18).Value = Convert.ToDecimal(Storage == "" ? "0" : Storage);
+                        command.Parameters.Add("@Penalties", SqlDbType.Decimal, 18).Value = Convert.ToDecimal(Penalties == "" ? "0" : Penalties);
+                        command.Parameters.Add("@Others", SqlDbType.Decimal, 18).Value = Convert.ToDecimal(Others == "" ? "0" : Others);
+                        command.Parameters.Add("@Certificates", SqlDbType.Decimal, 18).Value = Convert.ToDecimal(Certificates == "" ? "0" : Certificates);
+                        command.Parameters.Add("@Printing", SqlDbType.Decimal, 18).Value = Convert.ToDecimal(Printing == "" ? "0" : Printing);
+                        command.Parameters.Add("@Guarantees", SqlDbType.Decimal, 18).Value = Convert.ToDecimal(Guarantees == "" ? "0" : Guarantees);
+
+                        command.Parameters.Add("@ReceiptId", SqlDbType.Int).Value = String.IsNullOrEmpty(ReceiptId) ? 0 : Int32.Parse(ReceiptId);
+                        command.Parameters.Add("@BrPaymentTransactionId", SqlDbType.Int).Value = String.IsNullOrEmpty(BrPaymentTransactionId) ? 0 : Int32.Parse(BrPaymentTransactionId);
+                        command.Parameters.Add("@PaymentFor", SqlDbType.Int).Value = PaymentFor;
+
+			command.Parameters.Add("@MCPaymentId", SqlDbType.Int).Value = String.IsNullOrEmpty(MCPaymentId) ? 0 : Int32.Parse(MCPaymentId);
+						command.Parameters.Add("@ReferenceId", SqlDbType.Int).Value = String.IsNullOrEmpty(ReferenceId) ? 0 : Int32.Parse(ReferenceId);
+						command.Parameters.Add("@ReferenceType", SqlDbType.VarChar).Value = ReferenceType;
+
+                        command.Parameters.Add("@MCPaymentId", SqlDbType.Int).Value = String.IsNullOrEmpty(MCPaymentId) ? 0 : Int32.Parse(MCPaymentId);
+                        command.Parameters.Add("@ReferenceId", SqlDbType.Int).Value = String.IsNullOrEmpty(ReferenceId) ? 0 : Int32.Parse(ReferenceId);
+                        command.Parameters.Add("@ReferenceType", SqlDbType.VarChar).Value = ReferenceType;
+
+
+
+
+
+        #region AuditTableLogger
+
+        public void PaymentAuditLogger(String ReferenceId, String TranStatus,
+             DateTime TranSttDateTime, String ClientIPAddress,
+             String SessionId, String PortalLoginId, String LogInPortId,
+             String Amount, String OrganizationId, String PaymentFor,
+             String ReferenceNumber, String ReferenceType, String BrPaymentTransactionId, char PaidByType, 
+            String error, String response,
+             String ReceiptId, String PaymentId, String TrackId)
+
+            //String PaymentId, String error, String response, String TranStatus, String BrPaymentTransactionId, 
+            //Int64 ReferenceId,
+            // String TransId, DateTime TranStpDateTime,
+            // String Result, String PostDate, String AuthByBank, String RefByBank, String ReferenceNumber, 
+            //String ReferenceType, String ReceiptId, String PaymentType
+
+            // (String PaymentId, String error, String response, String TranStatus, String BrPaymentTransactionId, 
+            //Int64 ReferenceId,
+            // String TransId, DateTime TranStpDateTime,
+            // String Result, String PostDate, String AuthByBank, String RefByBank, String ReferenceNumber, 
+            //String ReferenceType, String ReceiptId, String PaymentType)
+
+
+            //UpdatePaymentDetailsGCSReceiptsKnet            UpdatePaymentDetailsGCSReceiptsKnetCanceledOrFailed 
+        {
+            bool success = false;
+            String str = "";
+
+            String connectStr = ConfigurationManager.ConnectionStrings["conStr"].ConnectionString;
+            using (SqlConnection connect = new SqlConnection(connectStr))
+            {
+                using (SqlCommand command = new SqlCommand("LogInitialPaymentDetailsGCSReceiptsKnet", connect))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+
+                    //command.Parameters.Add("@TrackId", SqlDbType.VarChar).Value = TrackId;
+                    command.Parameters.Add("@ReferenceId", SqlDbType.BigInt).Value = Int64.Parse(ReferenceId);
+                    command.Parameters.Add("@TranStatus", SqlDbType.VarChar).Value = TranStatus;
+                    command.Parameters.Add("@TranSttDateTime", SqlDbType.DateTime).Value = TranSttDateTime;
+                    command.Parameters.Add("@ClientIPAddress", SqlDbType.VarChar).Value = ClientIPAddress;
+                    command.Parameters.Add("@SessionId", SqlDbType.VarChar).Value = SessionId;
+                    command.Parameters.Add("@PortalLoginId", SqlDbType.VarChar).Value = PortalLoginId;
+                    command.Parameters.Add("@Amount", SqlDbType.Decimal).Value = Decimal.Parse(Amount);
+                    command.Parameters.Add("@OrganizationId", SqlDbType.Int).Value = Int32.Parse(OrganizationId);
+                    command.Parameters.Add("@PaymentFor", SqlDbType.VarChar).Value = PaymentFor;
+                    command.Parameters.Add("@ReferenceNumber", SqlDbType.VarChar).Value = ReferenceNumber;
+                    command.Parameters.Add("@ReferenceType", SqlDbType.VarChar).Value = ReferenceType;
+                    command.Parameters.Add("@BrPaymentTransactionId", SqlDbType.Int).Value = Int32.Parse(BrPaymentTransactionId);
+                    command.Parameters.Add("@PaidByType", SqlDbType.Char).Value = PaidByType;
+                    command.Parameters.Add("@LogInPortId", SqlDbType.Int).Value = Int32.Parse(LogInPortId);
+                    command.Parameters.Add("@error", SqlDbType.VarChar).Value = error;
+                    command.Parameters.Add("@response", SqlDbType.VarChar).Value = response;
+                    command.Parameters.Add("@ReceiptId", SqlDbType.VarChar).Value = ReceiptId;
+                    command.Parameters.Add("@OLPaymentId", SqlDbType.VarChar).Value = PaymentId;
+
+                    command.Parameters.Add("@OLTransId", SqlDbType.BigInt).Value = Int64.Parse(TrackId);
+
+
+                    foreach (SqlParameter sp in command.Parameters)
+                    {
+                        sp.Value = sp.Value == null ? "" : sp.Value;
+                        str += sp.ParameterName + "=" + sp.Value + "\t";
+                    }
+
+                    //command.Parameters.Add("@tokenId", SqlDbType.Int).Value = tokenId;
+
+                    connect.Open();
+                    int successQuery = command.ExecuteNonQuery();
+
+                    if (successQuery > 0)
+                    {
+                        success = true;
+                    }
+                    else
+                        SaveLog("LogInitialPaymentDetailsReceiptsKnet-SP-GCS", " Error in LogInit SP, Parameters are => " + str, EventLogEntryType.Error);
+
+                }
+            }
+        }
+
+        #endregion AuditTableLogger
+
+
+
+
+[ExceptionMsg] [varchar](100) NULL,  
+    [ExceptionType] [varchar](100) NULL,  
+    [ExceptionSource] [nvarchar](max) NULL,  
+    [ExceptionURL] [varchar](100) NULL,  
+    [Logdate] [datetime] NULL,  
+
+ exepurl = context.Current.Request.Url.ToString();  
+        SqlCommand com = new SqlCommand("ExceptionLoggingToDataBase", con);  
+        com.CommandType = CommandType.StoredProcedure;  
+        com.Parameters.AddWithValue("@ExceptionMsg", exdb.Message.ToString());  
+        com.Parameters.AddWithValue("@ExceptionType", exdb.GetType().Name.ToString());  
+        com.Parameters.AddWithValue("@ExceptionURL", exepurl);  
+        com.Parameters.AddWithValue("@ExceptionSource", exdb.StackTrace.ToString());  
+        com.ExecuteNonQuery();  
+
+
+ command.Parameters.Add("@ETokenId", SqlDbType.BigInt).Value = Int64.Parse(TokenId);
+                    //Check types
+                    command.Parameters.Add("@ExceptionMsg", SqlDbType.VarChar).Value = ExceptionMsg;
+                    command.Parameters.Add("@ExceptionType", SqlDbType.VarChar).Value = ExceptionType;
+                    command.Parameters.Add("@ExceptionSource", SqlDbType.VarChar).Value = ExceptionSource;
+                    command.Parameters.Add("@ExceptionURL", SqlDbType.VarChar).Value = ExceptionURL;
+                    command.Parameters.Add("@ExcpTimestamp", SqlDbType.DateTime).Value = ExcpTimestamp;
+
+[ErrorLog_PaymentDetailsGCSReceiptsKnet]
+
+
+https://paymentstest.gcskw.com/CallPaymentGateWay.aspx?TokenId=O%2f3tnPDGkSpDJkzpj%2bvi6rfwLWc2cChJvBoKKiGlAOl8cXJuw69PHFX5gL%2bCz0WT 
+
+
+?TokenId=O%2f3tnPDGkSpDJkzpj%2bvi6rfwLWc2cChJvBoKKiGlAOl8cXJuw69PHFX5gL%2bCz0WT

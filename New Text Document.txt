@@ -1,0 +1,18 @@
+[?6/?20/?2018 2:36 PM] Sirajudeen Ruknudeen: 
+7313867814210580842, 5893416571745694581, 2473469879764686225 
+in 201
+http://localhost/GCSKnetPayTestPPAzhar/callpaymentgateway.aspx?TokenId=5893416571745694581
+
+
+http://localhost:8947/CallPaymentGateWay.aspx?TokenId=5893416571745694581
+
+
+GetOnlinePaymentDetailsGCSReceiptsKnet
+
+GetOnlinePaymentDetailsGCSReceiptsKnet
+
+
+  <add key="SQLConnectionString" value="Data Source=10.10.27.204;user id=mcweb;password=mcweb;initial catalog=MicroClearLight_Epay2018; Max Pool Size=1000" />
+ 
+
+1981096418763532868

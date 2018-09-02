@@ -1,0 +1,98 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CallFromMicroClear.aspx.cs"
+    Inherits="KnetPayment.CallFromMicroClear" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<link href="css/st.css" rel="stylesheet" type="text/css" />
+    <base target="_self" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <title></title>
+    <script type="text/javascript">
+        var parWindow;
+        //window.document.domain = '*.kgac.gov.kw';
+
+        function close_window() 
+        {
+            if (confirm("Close Window?"))
+             {
+                window.top.close();
+                // window.parent.document.forms['DeclarationEPaymentFr'].cWindow.value = 'closed';
+                window.parWindow.refreshUpOnEPayment();
+                //OnCloseCall();
+            }
+        }
+    </script>
+</head>
+<body dir="<% =Resources.Resource.dir %>">
+    <img src="Images/<% =Resources.Resource.dir %>.gif" alt="" width="810" />
+    <table width="100%" border="0" cellpadding="1" cellspacing="1" class="text">
+        <tr>
+            <td align="center">
+                <table width="70%" border="0">
+                    <tr>
+                        <td align="center" width="100%" class="heading">
+                            <strong><% =Resources.Resource.HeaderMessage %></strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" width="100%" class="imptext">
+                            <p><% =Resources.Resource.WarningMessage %></p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td class="tdwhite">
+                <table width="70%" align="center" cellpadding="0" cellspacing="1"  border="1">
+                    <tr>
+                        <th class="tdfixed">
+                            <%--Declaration Number--%>
+                            <% =Resources.Resource.DeclarationNumber %>
+                        </th>
+                        <th class="tdfixed">
+                            <%--Amount--%>
+                            <% =Resources.Resource.Amount %>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td class="tdwhite">
+                            <%= knet.TempDeclNumber %>
+                        </td>
+                        <td class="tdwhite">
+                            <%=knet.Amount.ToString()%>
+                            KD
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td class="tdwhite">
+                <form id="Form1" runat="server" target="_parent">
+                <input type="hidden" name="declarationId" value="<%= knet.TempDeclNumber%>" />
+                <input type="hidden" name="amount" value="<%= knet.Amount %>" />
+                <table width="70%" border="0" align="center" cellpadding="0" cellspacing="1" >
+                    <tr>
+                    <td class="tdwhite" colspan="3">
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdwhite" colspan="3" align="center">
+                            <span><asp:Button id="Proceed" runat="server" onclick="Proceed_Click" class="button" /></span>
+                            <%--<input type="submit" value="<%=Resources.Resource.Proceed%>" onclick="<% CallKnetPage(); %>" />--%>
+                            <span> 
+                            <input type="reset" value="<%=Resources.Resource.Cancel%>" onclick="close_window();return false;" class="button" />
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+                </form>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

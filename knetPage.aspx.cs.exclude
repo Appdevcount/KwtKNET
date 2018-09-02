@@ -1,0 +1,37 @@
+﻿using System;
+using System.Collections.Generic;
+
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace KnetPayment
+{
+    public partial class knetPage : System.Web.UI.Page
+    {
+        public String AmountValue = String.Empty;
+        public String token = String.Empty;
+        public String paymentId = String.Empty;
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (Request.QueryString["Amount"] != null)
+            {
+                AmountValue = Request.QueryString["Amount"].ToString();
+                token = Request.QueryString["tokenId"].ToString();  // only in test site it will be Query String if not it should be from session
+                paymentId = Request.QueryString["paymentId"].ToString();
+            }
+
+        }
+
+        protected void EntrySubmitAction_id_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("receipt.aspx?token=" + token + "&paymentId=" + paymentId);
+        }
+
+        protected void EntrySubmitAction_idFailed_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("receiptFailed.aspx?token=" + token + "&paymentId=" + paymentId);
+        }
+    }
+}

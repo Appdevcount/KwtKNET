@@ -1,0 +1,289 @@
+/* --- Saqib Javaid */
+html
+{
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+body
+{
+    font-family: Arial, Helvetica, sans-serif;
+    /*font-size: 12pt;*/
+    margin: 0px 0px 0px 0px;
+}
+#footer 
+{
+    position:absolute ;
+    bottom:0;
+    width:100%;
+    height:30px;   
+}
+.heading
+{
+    font-family: Arial, Helvetica, sans-serif; /*font-size: 16px;*/
+    font-weight: bold;
+    color: #306DC8;
+    padding-bottom: 12px;
+    background-color: #ffffff;
+    /*font-size: large;
+    line-height: 22px;*/
+}
+.heading2
+{
+    font-family: Arial, Helvetica, sans-serif; /*font-size: 16px;*/
+    font-weight: normal;
+    color: #306DC8;
+    padding-bottom: 4px;
+    background-color: #ffffff;
+    font-size: medium;
+    line-height: 15px;
+}
+.heading21
+{
+    font-family: Arial, Helvetica, sans-serif; /*font-size: 16px;*/
+    font-weight:normal ;
+    color: #FF0000;
+    padding-bottom: 4px;
+    background-color: #ffffff;
+    font-size: medium;
+    line-height: 15px;
+}
+.subheading
+{
+    font-family: Arial, Helvetica, sans-serif; /*font-size: 16px;*/
+    font-weight:normal ;
+    color: #306DC8;
+    padding-bottom: 2px;
+    background-color: #ffffff;
+    font-size: medium;
+     
+}
+
+
+.subheading1
+{
+    font-family: Arial, Helvetica, sans-serif; /*font-size: 16px;*/
+    font-weight:bold ;
+    color: #306DC8;
+    padding-bottom: 5px;
+    background-color: #ffffff;
+    font-size: medium;
+    line-height: 23px;
+}
+
+.msg
+{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    background-color: #ffffff;
+}
+.error
+{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #ff0000;
+    padding-bottom: 15px;
+}
+
+.text
+{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    color: Black; /*padding-left: 3px;*/
+     /*position: relative;*/
+    text-align: center; /*bottom: 290px;*/
+    /*background-color:#f5f5f5;*/
+    background-color: #729FC6;
+    font-weight:bold;
+}
+
+.utext
+{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: medium;
+    color: black; /*padding-left: 3px;*/
+    text-align: center; /*bottom: 290px;*/
+    text-decoration:underline;
+}
+.button
+{
+    background-color: #729FC6; /* #0085B2 */ /*border: none;*/
+    color: Black;
+    padding: 5px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+     /*14px;*/
+    border: 2px solid #555555;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.button:hover
+{
+    background-color: #008CBA;
+    color: white;
+}
+.failed
+{
+    /*font-family: Verdana, Arial, Helvetica, sans-serif;*/
+    font-family: Arial, Helvetica, sans-serif;
+    color: Red;
+     /*padding-left: 1px;*/ /*font-weight: bold;*/
+    font-weight: bold;
+    line-height: 22px;
+    
+   
+     /*position: fixed;     top: 50%;     left: 50%;     margin-top: -50px;     margin-left: -100px;*/
+}
+.Bordered
+{
+    margin-left: auto;
+            margin-right: auto;
+            border: 1px solid black;
+            border-collapse: collapse;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            padding: 5px;
+            text-align: center;
+        
+}
+.hBordered
+{
+    margin-left: auto;
+            margin-right: auto;
+            border: 1px solid black;
+            border-collapse: collapse;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px; font-weight:bold;
+            padding: 5px;
+            
+        
+}
+.Noborder
+{
+    margin-left: auto;
+    margin-right: auto;
+    border: 0px;
+    border-style:none;
+    border-color:transparent;
+    border-collapse: collapse;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    padding: 5px;
+    text-align: center;
+}
+
+
+.tdfixed
+{
+    /*font-size: large;*/
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    padding: 2px;
+    background-color: #729FC6;
+    color: White;
+    text-align: center;
+}
+
+.tdwhite
+{
+    font-size: 15px;
+    color: Black;
+    font-family: Arial, Helvetica, sans-serif; /*background-color: #ffffff;*/
+    padding: 1px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.headerStyle
+{
+    font-size: 12px;
+    font-weight: bold;
+    width: 65%;
+    padding: 1px;
+    text-align: center;
+}
+
+
+.titleStyle
+{
+    font-family: Arial, Helvetica, sans-serif; 
+    color: Blue;
+    font-weight: bold;
+    font-size:medium;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+
+
+.titleStylefailed
+{
+    font-family: Arial, Helvetica, sans-serif; 
+    color: Red;
+    font-weight: bold;
+    font-size: large;
+    margin-left: auto;
+    margin-right: auto;
+   
+}
+
+
+th 
+{
+    text-align:right;}
+
+
+
+.center
+{
+    text-align: center;
+}
+
+.success
+{
+    /*font-family: Verdana, Arial, Helvetica, sans-serif;*/
+    font-family: Arial, Helvetica, sans-serif;
+    color: Green;
+     /*padding-left: 1px;*/ /*font-weight: bold;*/
+    font-weight: bold;
+   
+    
+   
+     /*position: fixed;     top: 50%;     left: 50%;     margin-top: -50px;     margin-left: -100px;*/
+}
+
+
+/*a:link
+{
+    color: #0e5ba3;
+    text-decoration: none;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    border: #FF6600;
+    font-weight: bold;
+    font-size: 20px;
+}
+A:visited
+{
+    color: #0e5ba3;
+    text-decoration: none;
+    font-weight: bold;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    border: #FF6600;
+    font-size: 20px;
+}
+a:hover
+{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    color: #0e5ba3;
+    font-weight: normal;
+    font-weight: bold;
+    text-decoration: underline;
+    border: #FF3300;
+}
+*/

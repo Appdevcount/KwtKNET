@@ -1,0 +1,233 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data.SqlClient;
+using System.Data;
+using System.Web.SessionState;
+using System.Globalization;
+using System.Threading;
+using System.Configuration;
+
+namespace KnetPayment
+{
+    public partial class CallFromMicroClear : BasePage//System.Web.UI.Page
+    {
+        public KnetVariables knet = new KnetVariables();
+        logging log = new logging();
+
+        //public static String PaymentType = String.Empty;
+
+        protected override void OnInit(EventArgs e)
+        {
+            Response.Cache.SetCacheability(System.Web.HttpCacheability.NoCache);
+            Response.AddHeader("pragma", "no-cache");
+            Response.AddHeader("Cache-Control", "no-cache");
+            Response.CacheControl = "no-cache";
+            Response.Expires = -1;
+            Response.ExpiresAbsolute = DateTime.Now.AddSeconds(-1);
+            Response.Cache.SetNoStore();
+            Response.Cache.SetAllowResponseInBrowserHistory(false);
+        }
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            Proceed.Text = Resources.Resource.Proceed;
+
+            /// From MicroClear Page: 
+            /// [DeclarationId, PortalLoginId, LogInPortId, Amount, 
+            /// OrganizationId,PaymentFor, PaidByType, TempDeclNumber, 
+            /// CheckId, Lang, [Token]]
+            try
+            {
+                if (Request.QueryString.AllKeys.Length > 0)
+                {
+                    int countNull = 0;
+                    string NullKey = string.Empty;
+                    foreach (String key in Request.QueryString.AllKeys)
+                    {
+                        if (IsNull(Request.QueryString[key]))
+                        {
+                            countNull = countNull + 1;
+                            NullKey = key.ToString();
+                            break;
+                        }
+                    }
+
+                    if (countNull == 0)
+                    {
+                        knet = InitKnetVariables(this.Context, Session.SessionID);
+                    }
+                    else
+                    {     // log null value
+                        log.SaveLog("CallFromMicroClearGCS", "Received Null Value" + "=>" + NullKey, System.Diagnostics.EventLogEntryType.Warning);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                log.SaveLog("CallFromMicroClearGCS", "Error in Page Load-" + ex.Source.ToString() + "=>" + ex.ToString(), System.Diagnostics.EventLogEntryType.Error);
+            }
+        }
+
+        public  KnetVariables InitKnetVariables(HttpContext context, string pSessionid)
+        {
+            KnetVariables knetRes = new KnetVariables();
+            try
+            {
+                Int64 declarationId = Int64.Parse(ZeroNull(context.Request.QueryString["DeclarationId"]));
+                knetRes.Amount = Decimal.Parse(ZeroNull(context.Request.QueryString["Amount"]));
+                knetRes.SessionId = pSessionid;
+                knetRes.ReferenceId = declarationId;
+                knetRes.PortalLoginId = EmptyNull(context.Request.QueryString["PortalLoginId"]);
+                knetRes.LogInPortId = Int32.Parse(ZeroNull(context.Request.QueryString["LogInPortId"]));
+                knetRes.OrganizationId = EmptyNull(context.Request.QueryString["OrganizationId"]);
+                knetRes.PaymentFor = EmptyNull(context.Request.QueryString["PaymentFor"]);
+                knetRes.PaidByType = Convert.ToChar(ZeroNull(context.Request.QueryString["PaidByType"]));
+                knetRes.ReferenceNumber = EmptyNull(context.Request.QueryString["TempDeclNumber"]);
+                knetRes.CheckId = Int32.Parse(ZeroNull(context.Request.QueryString["CheckId"]));
+                knetRes.TranStatus = "Started";
+                knetRes.ClientIPAddress = context.Request.ServerVariables["remote_addr"];
+                knetRes.TranSttDateTime = DateTime.Now;
+                //PaymentType = knetRes.PaymentFor;
+                //this value should be initiated and returned from DB
+                knetRes.TrackId = knetRes.CheckId.ToString();
+            }
+            catch (Exception ex)
+            {
+                log.SaveLog("CallFromMicroClearGCS", "Error in InitKnetVariables -" + ex.Source.ToString() + "=>" + ex.ToString(), System.Diagnostics.EventLogEntryType.Error);
+            }
+            return knetRes;
+        }
+
+        public static String EmptyNull(object pValue)
+        {
+            if (pValue is string && pValue != null) return pValue.ToString();
+
+            else return "";
+        }
+        public static String ZeroNull(object pValue)
+        {
+            if (pValue is string && pValue != null) return pValue.ToString();
+            else return "0";
+        }
+        private Boolean ValidateToken(Int64 token, Int64 DeclarationId)
+        {
+            //bool IsValid = false;
+
+            return true;//IsValid;
+        }
+        private Boolean IsNull(object toCheck)
+        {
+            bool Isnull = false;
+
+            if (toCheck == null || String.IsNullOrEmpty(toCheck.ToString()))
+            {
+                Isnull = true;
+            }
+            return Isnull;
+        }
+
+        //private String GetPaymentType(String Paidfor)
+        //{
+        //    switch (Paidfor)
+        //    {
+        //        case "1":
+        //            PaymentType = "Customs Duty";
+        //            break;
+        //        case "2":
+        //            PaymentType = "Deposits";
+        //            break;
+        //        default:
+        //            break;
+        //    }
+
+        //    return PaymentType;
+        //}
+
+
+        protected void Proceed_Click(object sender, EventArgs e)
+        {
+            if (knet.ReferenceNumber != null && knet.ReferenceId != 0)
+            {
+                short transVal = new short();
+                String paymentPage = String.Empty;
+                String PaymentId = String.Empty;
+                String ErrorMsg = String.Empty;
+                String response = String.Empty;
+                Boolean IsInteger = false;
+                try
+                {
+                    String ErrorUrl = ConfigurationManager.AppSettings["errorUrl"].ToString();
+                    String ResponseUrl = ConfigurationManager.AppSettings["responseUrl"].ToString();
+
+                    e24PaymentPipeLib.e24PaymentPipeCtlClass paymentGatway;
+
+                    paymentGatway = new e24PaymentPipeLib.e24PaymentPipeCtlClass();
+                    paymentGatway.Action = "1";
+                    paymentGatway.Currency = "414";
+                    paymentGatway.Language = Resources.Resource.KnetInterfaceLanguage;//"USA";  or  //ARA      
+
+                    paymentGatway.Amt = Request.Form["amount"].ToString();
+
+                    paymentGatway.ResponseUrl = ResponseUrl;//"https://csinternal.kgac.gov.kw/KNetPayment/NewResponse.aspx";
+                    paymentGatway.ErrorUrl = ErrorUrl;//"https://csinternal.kgac.gov.kw/KNetPayment/internalError.aspx";
+
+                    paymentGatway.ResourcePath = @"C:\KnetDLL\Kgac2Resource\";
+                    paymentGatway.Alias = "kgac2";
+                    //paymentGatway.ResourcePath = @"C:\KnetDLL\";
+                    //paymentGatway.Alias = "kgac";
+
+
+                    String FormattedTempDeclNumber = knet.ReferenceNumber.Replace(@"/", ".");
+                    paymentGatway.Udf1 = knet.Amount.ToString();
+                    paymentGatway.Udf2 = FormattedTempDeclNumber;
+                    paymentGatway.Udf3 = knet.ReferenceId.ToString();
+                    paymentGatway.Udf4 = knet.PaymentFor;
+
+                    paymentGatway.TrackId = knet.CheckId.ToString(); //(new Random().Next(10000000) + 1).ToString(); // You should create a new unique track ID for each transaction
+
+                    transVal = paymentGatway.PerformInitTransaction();
+
+                    PaymentId = paymentGatway.PaymentId;
+                    paymentPage = paymentGatway.PaymentPage;
+                    ErrorMsg = paymentGatway.ErrorMsg;
+                    response = paymentGatway.RawResponse;
+
+                    knet.response = response;
+                    knet.ErrorMsg = ErrorMsg;
+
+                    log.InitializePaymentDetail(knet);
+
+                    Int64 PaymentIdCheck = 0;
+
+                    IsInteger = Int64.TryParse(PaymentId, out PaymentIdCheck);
+                }
+
+                catch (Exception ex)
+                {
+                    log.SaveLog("CallFromMicroClear-paymentGatwayGCS", ex.ToString(), System.Diagnostics.EventLogEntryType.Error);
+                }
+                if (transVal != 0 || !IsInteger)
+                {
+                    // log ErrorMsg and response
+                    log.SaveLog("CallFromMicroClear-paymentGatwayGCS", "Knet Response => " + response + " Error=> " + ErrorMsg + "  PaymentId =>" + PaymentId, System.Diagnostics.EventLogEntryType.Error);
+                    Response.Redirect("Error.aspx");
+                }
+                else
+                {
+                    log.SaveLog("CallFromMicroClear-paymentGatwayGCS", " Redirect to Knet with PaymentId  " + PaymentId, System.Diagnostics.EventLogEntryType.Information);
+                    Response.Redirect(paymentPage + "?PaymentID=" + PaymentId); // Redirects user to KNET Payment Page with parameter PaymentID
+                }
+            }
+            else
+            {
+                log.SaveLog("CallFromMicroClearGCS", " Temp Declaration is Null " + ", Declaration Id is Null => " + " ", System.Diagnostics.EventLogEntryType.Error);
+
+                //Response.Write(Resources.Resource.errorSupport);
+            }
+        }
+
+    }
+}
