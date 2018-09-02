@@ -32,6 +32,7 @@
     String tkId = String.Empty;
     //nzxc
     //kb
+    //kln
     string EToeknId = "0";
     KnetPayment.ActivityHandler AH = new KnetPayment.ActivityHandler();
     KnetPayment.Activity<KnetPayment.PayResp> activity = new KnetPayment.Activity<KnetPayment.PayResp>()
