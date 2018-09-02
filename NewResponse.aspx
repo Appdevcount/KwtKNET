@@ -30,7 +30,8 @@
     String udfDeclaraTionId = String.Empty;
     String udfPaymentType = String.Empty; //,  udf5 
     String tkId = String.Empty;
-    //n
+    //nzxc
+    //kb
     string EToeknId = "0";
     KnetPayment.ActivityHandler AH = new KnetPayment.ActivityHandler();
     KnetPayment.Activity<KnetPayment.PayResp> activity = new KnetPayment.Activity<KnetPayment.PayResp>()
